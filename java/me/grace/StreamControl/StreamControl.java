@@ -16,8 +16,8 @@ import java.util.Arrays;
 
 public class StreamControl extends JavaPlugin {
     public static TwitchClient client;
-    public static String channel = "Mr_PotatoLIVE";
-    public static String ign = "Mr_PotatoLIVE";
+    public static String channel = "twitch_acc";
+    public static String ign = "game_username";
     public static String prefix = ChatColor.translateAlternateColorCodes('&', "&b&lStreamControl &r&7» &f");
 
     @Override
@@ -27,8 +27,8 @@ public class StreamControl extends JavaPlugin {
         OAuth2Credential credential = new OAuth2Credential("twitch", token);
 
         client = TwitchClientBuilder.builder()
-                .withClientId("v5thjlgflhoxegl4wcv7155ptxygm0")
-                .withClientSecret("by5e4dvzkt3p6giennszz1h8kh9p7p")
+                .withClientId("clientID")
+                .withClientSecret("clientSecret")
                 .withEnableChat(true)
                 .withChatAccount(credential)
                 .withEnableHelix(true)
