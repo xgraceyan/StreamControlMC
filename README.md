@@ -1,7 +1,7 @@
 # StreamControlMC
 Integration between Twitch live chat and Minecraft.
 
-Uses the [Twitch4J](https://twitch4j.github.io/) and [Spigot](https://hub.spigotmc.org/javadocs/bukkit/) API.
+Uses the [Twitch4J](https://twitch4j.github.io/) and [Spigot](https://hub.spigotmc.org/javadocs/bukkit/) Java API.
 
 ## Features
 Connects a Twitch channel to a Minecraft player and listens for bits, subs, gifted subs, and channel point redemption events. 
