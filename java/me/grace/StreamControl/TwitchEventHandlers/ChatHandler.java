@@ -6,14 +6,15 @@ import me.grace.StreamControl.StreamControl;
 
 public class ChatHandler {
     private final StreamControl twitchPlugin;
+
     private final StreamControl plugin;
-    public final String ign;
-    public final String prefix;
+    private final String gameName;
+    private final String prefix;
 
     public ChatHandler(StreamControl plugin) {
         this.twitchPlugin = plugin;
         this.plugin = StreamControl.getPlugin(StreamControl.class);
-        this.ign = StreamControl.getGameName();
+        this.gameName = StreamControl.getGameName();
         this.prefix = StreamControl.getPrefix();
     }
 

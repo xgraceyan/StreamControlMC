@@ -11,8 +11,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class BitHandler {
     private final StreamControl plugin;
-    public final String gameName;
-    public final String prefix;
+    private final String gameName;
+    private final String prefix;
 
     public BitHandler(StreamControl plugin) {
         this.plugin = StreamControl.getPlugin(StreamControl.class);

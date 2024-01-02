@@ -20,8 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class PointsHandler {
     private final StreamControl plugin;
-    public final String gameName;
-    public final String prefix;
+    private final String gameName;
+    private final String prefix;
 
     public PointsHandler(StreamControl plugin) {
         this.plugin = StreamControl.getPlugin(StreamControl.class);

@@ -16,8 +16,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class SubHandler {
     private final StreamControl plugin;
-    public final String gameName;
-    public final String prefix;
+    private final String gameName;
+    private final String prefix;
 
     public SubHandler(StreamControl plugin) {
         this.plugin = StreamControl.getPlugin(StreamControl.class);
