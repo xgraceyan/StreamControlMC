@@ -1,0 +1,4 @@
+name: StreamControl
+version: 1.0.0
+main: me.grace.StreamControl.StreamControl
+api-version: 1.17

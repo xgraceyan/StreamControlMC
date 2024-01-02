@@ -22,10 +22,8 @@ public class BitHandler {
 
     @EventSubscriber
     public void onCheer(CheerEvent event) {
-        int bits = event.getBits();
-        assert Bukkit.getPlayerExact(ign) != null;
-        // 10 bits - spawns axolotl
-        if(bits >= 10 && bits < 100) {
+        if(event.getBits() < 100 && event.getBits() >= 10) {
+            // 10 bits - Axolotl spawn
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -36,37 +34,20 @@ public class BitHandler {
                     axolotl.setCustomNameVisible(true);
                 }
             }.runTask(plugin);
-        }
-
-        // 100 bits - spawns zombie
-        else if(bits >= 100 && bits < 500) {
+        } else if(event.getBits() >= 100 && event.getBits() < 1000) {
+            // 100 bits - Spawn creeper
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Zombie spawned");
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Creeper spawned");
                     Player player = Bukkit.getPlayerExact(ign);
-                    Zombie zombie = (Zombie) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
-                    zombie.setCustomName(event.getUser().getName());
-                    zombie.setCustomNameVisible(true);
+                    Creeper creeper = (Creeper) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.CREEPER);
+                    creeper.setCustomName(event.getUser().getName());
+                    creeper.setCustomNameVisible(true);
                 }
             }.runTask(plugin);
-        }
-
-        // 500 bits - spawns ghast
-        else if(bits >= 500 && bits < 1000) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Ghast spawned");
-                    Player player = Bukkit.getPlayerExact(ign);
-                    Ghast ghast = (Ghast) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.GHAST);
-                    ghast.setCustomName(event.getUser().getName());
-                    ghast.setCustomNameVisible(true);
-                }
-            }.runTask(plugin);
-        }
-
-        else if(bits >= 1000 && bits < 5000) {
+        } else if(event.getBits() >= 1000 && event.getBits() < 3000) {
+            // 1000 bits - 5 witches
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -79,26 +60,16 @@ public class BitHandler {
                     player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITCH);
                 }
             }.runTask(plugin);
-        }
-
-        else if(bits >= 5000 && bits < 10000) {
+        } else if(event.getBits() >= 3000) {
+            // 3000 bits - WITHER
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Wither spawned");
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! WATCH OUT FOR THE WITHER :O");
                     Player player = Bukkit.getPlayerExact(ign);
-                    player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITHER);
-                }
-            }.runTask(plugin);
-        }
-
-        else if(bits >= 10000) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "@" + event.getUser().getName() + " committed murder O_O");
-                    Player player = Bukkit.getPlayerExact(ign);
-                    player.setHealth(0);
+                    Wither wither = (Wither) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITHER);
+                    wither.setCustomName(event.getUser().getName());
+                    wither.setCustomNameVisible(true);
                 }
             }.runTask(plugin);
         }

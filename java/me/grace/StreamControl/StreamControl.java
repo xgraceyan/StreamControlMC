@@ -13,22 +13,36 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class StreamControl extends JavaPlugin {
+
+    private String token = "token";
+    private String clientId = "clientId";
+    private String clientSecret = "clientSecret";
     public static TwitchClient client;
+<<<<<<< Updated upstream
     public static String channel = "twitch_acc";
     public static String ign = "game_username";
+=======
+    public static String channel = "imgracings";
+    public static String ign = "gracings";
+>>>>>>> Stashed changes
     public static String prefix = ChatColor.translateAlternateColorCodes('&', "&b&lStreamControl &r&7» &f");
 
     @Override
     public void onEnable() {
         this.getLogger().info("StreamControl v1.18 by gracings - Activated!");
-        String token = "ipuh0g7fq2exkh5h3qihnzo9xstn5a";
         OAuth2Credential credential = new OAuth2Credential("twitch", token);
 
         client = TwitchClientBuilder.builder()
+<<<<<<< Updated upstream
                 .withClientId("clientID")
                 .withClientSecret("clientSecret")
+=======
+                .withClientId(clientId)
+                .withClientSecret(clientSecret)
+>>>>>>> Stashed changes
                 .withEnableChat(true)
                 .withChatAccount(credential)
                 .withEnableHelix(true)
@@ -39,7 +53,7 @@ public class StreamControl extends JavaPlugin {
         client.getClientHelper().enableStreamEventListener(channel);
         client.getClientHelper().enableFollowEventListener(channel);
 
-        UserList resultList = client.getHelix().getUsers(null, null, Arrays.asList(channel)).execute();
+        UserList resultList = client.getHelix().getUsers(null, null, Collections.singletonList(channel)).execute();
 
         client.getEventManager().getEventHandler(SimpleEventHandler.class).registerListener(new BitHandler(this));
         client.getEventManager().getEventHandler(SimpleEventHandler.class).registerListener(new SubHandler(this));

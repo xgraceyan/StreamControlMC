@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PointsHandler {
@@ -40,127 +41,133 @@ public class PointsHandler {
 
     @EventSubscriber
     public void onChannelPointRedeem(ChannelPointsRedemptionEvent event) {
-        String title = event.getRedemption().getReward().getTitle();
-
-        Player player = Bukkit.getPlayerExact(ign);
-        assert player != null;
-
-        if(title.equals("Spawn A Goat")) {
+        if(event.getRedemption().getReward().getTitle().equals("Spawn A Goat")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Goat spawned");
+                    Player player = Bukkit.getPlayerExact(ign);
                     Goat goat = (Goat) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.GOAT);
                     goat.setCustomName(event.getRedemption().getUser().getDisplayName());
                     goat.setCustomNameVisible(true);
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("16 Wood Logs")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Change To Day")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Wood given");
-                    if(player.getInventory().firstEmpty() == -1) {
-                        player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.OAK_LOG, 16));
-                    } else {
-                        player.getInventory().addItem(new ItemStack(Material.OAK_LOG, 16));
-                    }
-                }
-            }.runTask(plugin);
-        }
-
-        else if(title.equals("Set Time to Day")) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Wood given");
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Time changed");
+                    Player player = Bukkit.getPlayerExact(ign);
                     player.getWorld().setTime(500);
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("Set Time to Night")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Change To Night")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Wood given");
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Time changed");
+                    Player player = Bukkit.getPlayerExact(ign);
                     player.getWorld().setTime(13000);
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("64 Baked Potatoes")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Jump")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Wood given");
-                    if(player.getInventory().firstEmpty() == -1) {
-                        player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.BAKED_POTATO, 64));
-                    } else {
-                        player.getInventory().addItem(new ItemStack(Material.BAKED_POTATO, 64));
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Jumped");
+                    Player player = Bukkit.getPlayerExact(ign);
+                    player.setVelocity(player.getVelocity().setY(0.7));
+                }
+            }.runTask(plugin);
+        } else if(event.getRedemption().getReward().getTitle().equals("Give Me Iron")) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Iron given");
+                    Player player = Bukkit.getPlayerExact(ign);
+                    final ItemStack iron = new ItemStack(Material.IRON_INGOT, 20); // Your itemstack
+                    final Map<Integer, ItemStack> map = player.getInventory().addItem(iron); // Attempt to add in inventory
+                    if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
+                        player.getWorld().dropItem(player.getLocation(), iron);
                     }
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("Random Potion Effect")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Give Me Potatoes")) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Potatoes given");
+                    Player player = Bukkit.getPlayerExact(ign);
+                    final ItemStack potato = new ItemStack(Material.POTATO, 64); // Your itemstack
+                    final Map<Integer, ItemStack> map = player.getInventory().addItem(potato); // Attempt to add in inventory
+                    if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
+                        player.getWorld().dropItem(player.getLocation(), potato);
+                    }
+                }
+            }.runTask(plugin);
+        } else if(event.getRedemption().getReward().getTitle().equals("Random Potion Effect")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Random effect given");
+                    Player player = Bukkit.getPlayerExact(ign);
                     int rnd = ThreadLocalRandom.current().nextInt(PotionEffectType.values().length);
+                    assert player != null;
                     player.addPotionEffect(new PotionEffect(PotionEffectType.values()[rnd], 600, 0));
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("32 Diamonds")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Give Me Diamonds")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Diamonds given");
-                    if(player.getInventory().firstEmpty() == -1) {
-                        player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.DIAMOND, 32));
-                    } else {
-                        player.getInventory().addItem(new ItemStack(Material.DIAMOND, 32));
+                    Player player = Bukkit.getPlayerExact(ign);
+                    final ItemStack diamond = new ItemStack(Material.DIAMOND, 20); // Your itemstack
+                    final Map<Integer, ItemStack> map = player.getInventory().addItem(diamond); // Attempt to add in inventory
+                    if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
+                        player.getWorld().dropItem(player.getLocation(), diamond);
                     }
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("32 Gold")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Give Me Gold")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Gold given");
-                    if(player.getInventory().firstEmpty() == -1) {
-                        player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.GOLD_INGOT, 32));
-                    } else {
-                        player.getInventory().addItem(new ItemStack(Material.GOLD_INGOT, 32));
+                    Player player = Bukkit.getPlayerExact(ign);
+                    final ItemStack gold = new ItemStack(Material.GOLD_INGOT, 20); // Your itemstack
+                    final Map<Integer, ItemStack> map = player.getInventory().addItem(gold); // Attempt to add in inventory
+                    if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
+                        player.getWorld().dropItem(player.getLocation(), gold);
                     }
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("Spawn Random Mob")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Instant Health II")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Random mob spawned");
-                    player.getLocation().getWorld().spawnEntity(player.getLocation(), pickRandomEntity());
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Instant health II given");
+                    Player player = Bukkit.getPlayerExact(ign);
+                    assert player != null;
+                    if(player.getHealth() >= 12) {
+                        player.setHealth(20);
+                    } else {
+                        player.setHealth(player.getHealth() + 8);
+                    }
                 }
             }.runTask(plugin);
-        }
-
-        else if(title.equals("Spawn Lava")) {
+        } else if(event.getRedemption().getReward().getTitle().equals("Notch Apple")) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Lava spawned");
-                    Location location = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ());
-                    location.getBlock().setType(Material.LAVA);
+                    Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! God apple given");
+                    Player player = Bukkit.getPlayerExact(ign);
+                    assert player != null;
+                    final ItemStack godApple = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1); // Your itemstack
+                    final Map<Integer, ItemStack> map = player.getInventory().addItem(godApple); // Attempt to add in inventory
+                    if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
+                        player.getWorld().dropItem(player.getLocation(), godApple);
+                    }
                 }
             }.runTask(plugin);
         }
