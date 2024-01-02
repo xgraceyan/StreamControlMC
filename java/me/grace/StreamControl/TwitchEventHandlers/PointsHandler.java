@@ -20,23 +20,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class PointsHandler {
     private final StreamControl plugin;
-    public final String ign;
+    public final String gameName;
     public final String prefix;
 
     public PointsHandler(StreamControl plugin) {
         this.plugin = StreamControl.getPlugin(StreamControl.class);
-        this.ign = StreamControl.ign;
-        this.prefix = StreamControl.prefix;
-    }
-
-    public EntityType pickRandomEntity() {
-        int rnd = ThreadLocalRandom.current().nextInt(EntityType.values().length);
-        if(EntityType.values()[rnd] == EntityType.ENDER_DRAGON || EntityType.values()[rnd] == EntityType.WITHER) {
-            pickRandomEntity();
-        } else {
-            return EntityType.values()[rnd];
-        }
-        return null;
+        this.gameName = StreamControl.getGameName();
+        this.prefix = StreamControl.getPrefix();
     }
 
     @EventSubscriber
@@ -46,7 +36,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Goat spawned");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     Goat goat = (Goat) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.GOAT);
                     goat.setCustomName(event.getRedemption().getUser().getDisplayName());
                     goat.setCustomNameVisible(true);
@@ -57,7 +47,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Time changed");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     player.getWorld().setTime(500);
                 }
             }.runTask(plugin);
@@ -66,7 +56,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Time changed");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     player.getWorld().setTime(13000);
                 }
             }.runTask(plugin);
@@ -75,7 +65,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Jumped");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     player.setVelocity(player.getVelocity().setY(0.7));
                 }
             }.runTask(plugin);
@@ -84,7 +74,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Iron given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     final ItemStack iron = new ItemStack(Material.IRON_INGOT, 20); // Your itemstack
                     final Map<Integer, ItemStack> map = player.getInventory().addItem(iron); // Attempt to add in inventory
                     if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
@@ -97,7 +87,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Potatoes given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     final ItemStack potato = new ItemStack(Material.POTATO, 64); // Your itemstack
                     final Map<Integer, ItemStack> map = player.getInventory().addItem(potato); // Attempt to add in inventory
                     if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
@@ -110,7 +100,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Random effect given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     int rnd = ThreadLocalRandom.current().nextInt(PotionEffectType.values().length);
                     assert player != null;
                     player.addPotionEffect(new PotionEffect(PotionEffectType.values()[rnd], 600, 0));
@@ -121,7 +111,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Diamonds given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     final ItemStack diamond = new ItemStack(Material.DIAMOND, 20); // Your itemstack
                     final Map<Integer, ItemStack> map = player.getInventory().addItem(diamond); // Attempt to add in inventory
                     if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
@@ -134,7 +124,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Gold given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     final ItemStack gold = new ItemStack(Material.GOLD_INGOT, 20); // Your itemstack
                     final Map<Integer, ItemStack> map = player.getInventory().addItem(gold); // Attempt to add in inventory
                     if (!map.isEmpty()) { // If not empty, it means the player's inventory is full.
@@ -147,7 +137,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! Instant health II given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     assert player != null;
                     if(player.getHealth() >= 12) {
                         player.setHealth(20);
@@ -161,7 +151,7 @@ public class PointsHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getRedemption().getUser().getDisplayName() + "! God apple given");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     assert player != null;
                     final ItemStack godApple = new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1); // Your itemstack
                     final Map<Integer, ItemStack> map = player.getInventory().addItem(godApple); // Attempt to add in inventory

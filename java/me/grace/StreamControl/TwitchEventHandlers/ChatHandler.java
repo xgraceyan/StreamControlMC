@@ -13,15 +13,15 @@ public class ChatHandler {
     public ChatHandler(StreamControl plugin) {
         this.twitchPlugin = plugin;
         this.plugin = StreamControl.getPlugin(StreamControl.class);
-        this.ign = StreamControl.ign;
-        this.prefix = StreamControl.prefix;
+        this.ign = StreamControl.getGameName();
+        this.prefix = StreamControl.getPrefix();
     }
 
     @EventSubscriber
     public void onMessageSend(ChannelMessageEvent event) {
         String message = event.getMessage();
         if(message.equals("!smc about")) {
-            twitchPlugin.getTwitchClient().getChat().sendMessage(StreamControl.channel, "StreamControl made by @imgracings / Discord grace#2039 :)");
+            twitchPlugin.getTwitchClient().getChat().sendMessage(StreamControl.getChannel(), "StreamControl made by @imgracings / Discord grace#2039 :)");
         }
     }
 }

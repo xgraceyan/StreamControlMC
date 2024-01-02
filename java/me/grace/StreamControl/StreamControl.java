@@ -20,29 +20,19 @@ public class StreamControl extends JavaPlugin {
     private String token = "token";
     private String clientId = "clientId";
     private String clientSecret = "clientSecret";
-    public static TwitchClient client;
-<<<<<<< Updated upstream
-    public static String channel = "twitch_acc";
-    public static String ign = "game_username";
-=======
-    public static String channel = "imgracings";
-    public static String ign = "gracings";
->>>>>>> Stashed changes
-    public static String prefix = ChatColor.translateAlternateColorCodes('&', "&b&lStreamControl &r&7» &f");
+    private TwitchClient client;
+    private static String channel = "twitch_acc";
+    private static String gameName = "game_username";
+    private static String prefix = ChatColor.translateAlternateColorCodes('&', "&b&lStreamControl &r&7» &f");
 
     @Override
     public void onEnable() {
-        this.getLogger().info("StreamControl v1.18 by gracings - Activated!");
+        this.getLogger().info("StreamControl v1.17 by Grace - Activated!");
         OAuth2Credential credential = new OAuth2Credential("twitch", token);
 
         client = TwitchClientBuilder.builder()
-<<<<<<< Updated upstream
-                .withClientId("clientID")
-                .withClientSecret("clientSecret")
-=======
                 .withClientId(clientId)
                 .withClientSecret(clientSecret)
->>>>>>> Stashed changes
                 .withEnableChat(true)
                 .withChatAccount(credential)
                 .withEnableHelix(true)
@@ -64,4 +54,8 @@ public class StreamControl extends JavaPlugin {
     public TwitchClient getTwitchClient() {
         return client;
     }
+
+    public static String getChannel() { return channel; }
+    public static String getGameName() {return gameName; }
+    public static String getPrefix() {return prefix;}
 }

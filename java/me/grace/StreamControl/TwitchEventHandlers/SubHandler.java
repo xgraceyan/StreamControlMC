@@ -16,13 +16,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class SubHandler {
     private final StreamControl plugin;
-    public final String ign;
+    public final String gameName;
     public final String prefix;
 
     public SubHandler(StreamControl plugin) {
         this.plugin = StreamControl.getPlugin(StreamControl.class);
-        this.ign = StreamControl.ign;
-        this.prefix = StreamControl.prefix;
+        this.gameName = StreamControl.getGameName();
+        this.prefix = StreamControl.getPrefix();
     }
 
     public int getInventoryFreeSlots(Player player) {
@@ -37,7 +37,7 @@ public class SubHandler {
 
     @EventSubscriber
     public void onSub(SubscriptionEvent event) {
-        Player player = Bukkit.getPlayerExact(ign);
+        Player player = Bukkit.getPlayerExact(gameName);
         assert player != null;
 
         if(event.getSubPlan() == SubscriptionPlan.TIER1 || event.getSubPlan() == SubscriptionPlan.TWITCH_PRIME) {
@@ -87,7 +87,7 @@ public class SubHandler {
     public void onSubGift(GiftSubscriptionsEvent event) {
         int subs = event.getCount();
 
-        Player player = Bukkit.getPlayerExact(ign);
+        Player player = Bukkit.getPlayerExact(gameName);
         assert player != null;
 
         if(subs >= 1 && subs < 3) {

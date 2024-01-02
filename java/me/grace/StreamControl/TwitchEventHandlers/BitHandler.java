@@ -11,13 +11,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class BitHandler {
     private final StreamControl plugin;
-    public final String ign;
+    public final String gameName;
     public final String prefix;
 
     public BitHandler(StreamControl plugin) {
         this.plugin = StreamControl.getPlugin(StreamControl.class);
-        this.ign = StreamControl.ign;
-        this.prefix = StreamControl.prefix;
+        this.gameName = StreamControl.getGameName();
+        this.prefix = StreamControl.getPrefix();
     }
 
     @EventSubscriber
@@ -28,7 +28,7 @@ public class BitHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Axolotl spawned");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     Axolotl axolotl = (Axolotl) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.AXOLOTL);
                     axolotl.setCustomName(event.getUser().getName());
                     axolotl.setCustomNameVisible(true);
@@ -40,7 +40,7 @@ public class BitHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Creeper spawned");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     Creeper creeper = (Creeper) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.CREEPER);
                     creeper.setCustomName(event.getUser().getName());
                     creeper.setCustomNameVisible(true);
@@ -52,7 +52,7 @@ public class BitHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! Witches spawned");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITCH);
                     player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITCH);
                     player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITCH);
@@ -66,7 +66,7 @@ public class BitHandler {
                 @Override
                 public void run() {
                     Bukkit.getServer().broadcastMessage(prefix + "Thanks @" + event.getUser().getName() + "! WATCH OUT FOR THE WITHER :O");
-                    Player player = Bukkit.getPlayerExact(ign);
+                    Player player = Bukkit.getPlayerExact(gameName);
                     Wither wither = (Wither) player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.WITHER);
                     wither.setCustomName(event.getUser().getName());
                     wither.setCustomNameVisible(true);
